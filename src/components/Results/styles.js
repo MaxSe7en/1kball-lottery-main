@@ -34,3 +34,7 @@ export const Content = styled.div`
 `;
 
 export const Heading = styled.h1``;
+export const TableHeader = styled.h3`
+  font-size: 25px;
+  font-weight: bold;
+`;

@@ -16,13 +16,13 @@ const App = () => {
         {/* <Home /> */}
         {/* <Product /> */}
         {/* <About /> */}
-        <Results />
-        {/* <Routes>
+        {/* <Results /> */}
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/product" element={<Product />} />
           <Route path="/result" element={<Results />} />
-        </Routes> */}
+        </Routes>
       </div>
         <GlobalStyle />
     </BrowserRouter>

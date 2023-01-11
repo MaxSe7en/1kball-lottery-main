@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Wrapper, Content, Heading } from "./styles";
+import { Wrapper, Content, Heading, TableHeader } from "./styles";
 import ArrowIcon from "../../images/n_7808.png";
 import ArrowDownIcon from "../../images/arrow_2.png";
 import Text from "../Text/Text";
@@ -22,9 +22,9 @@ const Results = () => {
     temp[i] = !temp[i];
     setToggleArray(temp);
   };
-  // const fetchResults = () => {
-  //   fetch("https://jsonplaceholder.typicode.com/posts")
-  //    .then(response => response.json())
+  const fetchResults = () => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+     .then(response => response.json())}
 
   return (
     <Wrapper>
@@ -47,15 +47,15 @@ You can view the latest numbers including detailed information of winners and pr
           <Heading>Latest Results</Heading>
           <span>Here are the official LIW Games draw results for A weeks.</span>
         </div>
-        <div class="d-flex align-items-start justify-content-stretch">
+        <div className="d-flex align-items-start justify-content-stretch">
           <div
-            class="nav m-margin flex-column nav-pills me-3 col-lg-2"
+            className="nav m-margin flex-column nav-pills me-3 col-lg-2"
             id="v-pills-tab"
             role="tablist"
             aria-orientation="vertical"
           >
             <button
-              class="nav-link active"
+              className="nav-link active"
               id="v-pills-home-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-home"
@@ -67,7 +67,7 @@ You can view the latest numbers including detailed information of winners and pr
               5 D
             </button>
             <button
-              class="nav-link"
+              className="nav-link"
               id="v-pills-profile-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-profile"
@@ -78,9 +78,10 @@ You can view the latest numbers including detailed information of winners and pr
             >
               3 D
             </button>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
+            <li className="nav-item dropdown">
+              {/* work on styling the button */}
+              <button
+                className="nav-link dropdown-toggle"
                 data-bs-toggle="collapse"
                 href="#collapsePane"
                 role="button"
@@ -88,11 +89,11 @@ You can view the latest numbers including detailed information of winners and pr
                 aria-controls="collapsePane"
               >
                 5 D
-              </a>
-              <ul class="collapse nav-list-pane text-center bg-white text-black" id="collapsePane">
+              </button>
+              <ul className="collapse nav-list-pane text-center bg-white text-black" id="collapsePane">
                 <li>
                   <a
-                    class="nav-link nav-links-list m-links-list-item"
+                    className="nav-link nav-links-list m-links-list-item"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"
@@ -106,7 +107,7 @@ You can view the latest numbers including detailed information of winners and pr
                   </a>
                 </li>
                 <li>
-                  <a class="nav-link m-links-list-item"
+                  <a className="nav-link m-links-list-item"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"
@@ -120,7 +121,7 @@ You can view the latest numbers including detailed information of winners and pr
               </ul>
             </li>
             <button
-              class="nav-link"
+              className="nav-link"
               id="v-pills-disabled-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-disabled"
@@ -128,12 +129,12 @@ You can view the latest numbers including detailed information of winners and pr
               role="tab"
               aria-controls="v-pills-disabled"
               aria-selected="false"
-              disbled
+              
             >
               Fast 3
             </button>
             <button
-              class="nav-link"
+              className="nav-link"
               id="v-pills-disabled-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-disabled"
@@ -145,7 +146,7 @@ You can view the latest numbers including detailed information of winners and pr
               Pk 10
             </button>
             <button
-              class="nav-link"
+              className="nav-link"
               id="v-pills-disabled-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-disabled"
@@ -157,7 +158,7 @@ You can view the latest numbers including detailed information of winners and pr
               11 x 5
             </button>
             <button
-              class="nav-link"
+              className="nav-link"
               id="v-pills-messages-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-messages"
@@ -169,7 +170,7 @@ You can view the latest numbers including detailed information of winners and pr
               Pc 28
             </button>
             <button
-              class="nav-link"
+              className="nav-link"
               id="v-pills-settings-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-settings"
@@ -181,13 +182,13 @@ You can view the latest numbers including detailed information of winners and pr
               49/7
             </button>
           </div>
-          <div class="tab-content" id="v-pills-tabContent">
+          <div className="tab-content" id="v-pills-tabContent">
             <div
-              class="tab-pane fade show active"
+              className="tab-pane fade show active"
               id="v-pills-home"
               role="tabpanel"
               aria-labelledby="v-pills-home-tab"
-              tabindex="0"
+              tabIndex="0"
             >
               <div
                 className="col-lg-12 m-col-table"
@@ -195,26 +196,26 @@ You can view the latest numbers including detailed information of winners and pr
               >
                 <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
-                    <div className="table-responsive">
+                    <div className="table-responsive">                          <TableHeader>5 D .. 5D1</TableHeader>
+
                       <table
                         id="example"
                         style={{ width: "100%" }}
                         className="table "
                       >
                         <thead>
-                          <h4> 5 D .. 5D1</h4>
                           <tr>
                             <th>#</th>
                             <th>
-                              <img src={ArrowDownIcon} alt="ss" />
+                              <img src={ArrowDownIcon} alt="arrow" />
                               Number
                             </th>
                             <th>
-                              <img src={ArrowIcon} alt="ss" />
+                              <img src={ArrowIcon} alt="arrow" />
                               DrawDate
                             </th>
                             <th>
-                              <img src={ArrowIcon} alt="ss" />
+                              <img src={ArrowIcon} alt="arrow" />
                               DrawTime
                             </th>
                             {/* <th>Start date</th>
@@ -410,11 +411,11 @@ You can view the latest numbers including detailed information of winners and pr
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="v-pills-profile"
               role="tabpanel"
               aria-labelledby="v-pills-profile-tab"
-              tabindex="0"
+              tabIndex="0"
             >
               <div
                 className="col-lg-12 m-col-table"
@@ -429,7 +430,6 @@ You can view the latest numbers including detailed information of winners and pr
                         className="table "
                       >
                         <thead>
-                          <h4> 5 D .. 5D1</h4>
                           <tr>
                             <th>#</th>
                             <th>
@@ -637,11 +637,11 @@ You can view the latest numbers including detailed information of winners and pr
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="v-pills-disabled"
               role="tabpanel"
               aria-labelledby="v-pills-disabled-tab"
-              tabindex="0"
+              tabIndex="0"
             >
               <div
                 className="col-lg-12 m-col-table"
@@ -656,7 +656,6 @@ You can view the latest numbers including detailed information of winners and pr
                         className="table "
                       >
                         <thead>
-                          <h4> 5 D .. 5D1</h4>
                           <tr>
                             <th>#</th>
                             <th>
@@ -864,11 +863,11 @@ You can view the latest numbers including detailed information of winners and pr
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="v-pills-messages"
               role="tabpanel"
               aria-labelledby="v-pills-messages-tab"
-              tabindex="0"
+              tabIndex="0"
             >
               <div
                 className="col-lg-12 m-col-table"
@@ -883,7 +882,6 @@ You can view the latest numbers including detailed information of winners and pr
                         className="table "
                       >
                         <thead>
-                          <h4> 5 D .. 5D1</h4>
                           <tr>
                             <th>#</th>
                             <th>
@@ -1091,11 +1089,11 @@ You can view the latest numbers including detailed information of winners and pr
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="v-pills-settings"
               role="tabpanel"
               aria-labelledby="v-pills-settings-tab"
-              tabindex="0"
+              tabIndex="0"
             >
               <div
                 className="col-lg-12 m-col-table"
@@ -1110,7 +1108,6 @@ You can view the latest numbers including detailed information of winners and pr
                         className="table "
                       >
                         <thead>
-                          <h4> 5 D .. 5D1</h4>
                           <tr>
                             <th>#</th>
                             <th>
