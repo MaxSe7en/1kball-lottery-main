@@ -1,0 +1,278 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+/* body{
+    background-image: url('/src/images/background_2@2x.png');
+    
+}
+
+li{
+    background-color: #ffffffbe;
+    background-color: #076696;
+    font-family: m;
+}
+:root {
+    --maxWidth: 1280px; 
+    --white: #fff;
+    --lightGrey: #eee;
+    --medGrey: #353535; 
+    --darkGrey: #1c1c1c;
+    --fontSuperBig: 2.5rem;
+    --fontBig: 1.5rem;
+    --fontMed: 1.2rem;
+    --fontSmall: 1rem;
+  } */
+
+/* .hus{
+    background-color: #ffffff80;
+    background-color: #076696;
+    font-family: #bbbbbb;
+}  */
+
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+.contact .info-box {
+  background-color: #ff3567;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+  padding: 30px 0 32px 0;
+  border-radius: 4px;
+}
+.contact .info-box i {
+  font-size: 32px;
+  color: #e03a3c;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px dotted #f8d4d5;
+}
+.contact .info-box h3 {
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 700;
+  margin: 10px 0;
+}
+.contact .info-box p {
+  padding: 0;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.contact .php-email-form {
+  box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+  padding: 30px;
+  border-radius: 4px;
+}
+.contact .php-email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-form .error-message br + br {
+  margin-top: 25px;
+}
+.contact .php-email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+.contact .php-email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+.contact .php-email-form .form-group {
+  margin-bottom: 25px;
+}
+.contact .php-email-form input,
+.contact .php-email-form textarea {
+  box-shadow: none;
+  font-size: 14px;
+  border-radius: 4px;
+}
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
+  border-color: #111111;
+}
+.contact .php-email-form input {
+  padding: 10px 15px;
+}
+.contact .php-email-form textarea {
+  padding: 12px 15px;
+}
+.contact .php-email-form button[type="submit"] {
+  background: #ff3567;
+  border: 0;
+  padding: 10px 32px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+.contact .php-email-form button[type="submit"]:hover {
+  background: #e35052;
+}
+
+.contact .contact-texts {
+  display: inline;
+  white-space: nowrap;
+}
+.contact #image {
+  display: inline;
+}
+.contact #container {
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@-webkit-keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.results-col tr {
+  border-bottom: 1px solid #f2f2f2;
+}
+.result-toggle {
+  height: 50px;
+  background-color: #ffffffcb;
+  padding-left: 10px;
+  text-align: center;
+}
+.results-col .active {
+  border-left: solid 5px black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.card{
+  border: 1px solid#707070 !important;
+  border-radius: 0;
+}
+
+.card thead{
+  margin: 100px 30px !important;
+
+}
+.card thead tr{
+  background-color: #f2f2f2;
+  border-top: solid 2px #ed3c0d !important;
+  border-bottom: solid 2px #ed3c0d !important;
+  margin: 100px 30px !important;
+
+}
+.nav-pills .nav-link.active {
+  border-left: solid 5px #ed3c0d !important;
+  background-color: rgba(255, 255, 255, 0.521);
+  color: #000;
+  border-radius: 0;
+}
+.nav-pills {
+  background-color: #707070;
+  padding: 20px 0;
+  margin: 0 !important;
+}
+.nav-pills.nav-link {
+  /* border-radius: 0!important; */
+  color: #fff !important;
+
+}
+button.nav-link {
+  color: #fff !important;
+
+}
+
+.nav.m-margin {
+  margin-top: 3rem !important;
+}
+.m-col-table td {
+  /* border-color: #707070 !important; */
+  border-bottom-width: 2px;
+}
+/*--------------------------------------------------------------
+# results table
+--------------------------------------------------------------*/
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 300px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 300px;
+}
