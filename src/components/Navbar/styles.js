@@ -7,6 +7,7 @@ export const Wrapper = styled.nav`
 	height: 140px;
 	display: flex;
 	flex-direction: column;
+	z-index: 1;
 	/* align-items: center; */
 	/* background-color: blueviolet; */
 	/* justify-content: space-around; */
