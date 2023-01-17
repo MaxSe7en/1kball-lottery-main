@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
   body {  
     /* margin: 0; */
     margin: 0;
-    /* overflow:   scroll; */
+    overflow-y:hidden;
     padding: 0;
     /* position: fixed; */
     /* position: absolute; */
@@ -77,9 +77,16 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: scroll;
     /* text-align:justify; */
   }
-
+/* hide scrollbar for chrome*/
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; 
 }
+
+/* hide scroll bar for mozilla */
+.scroll::-moz-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
 `;

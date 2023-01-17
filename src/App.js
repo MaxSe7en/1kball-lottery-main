@@ -12,7 +12,7 @@ const App = () => {
   return (
     <BrowserRouter>
         <Navbar />
-      <div className="scroll">
+      <div className="scroll" style={{ MozAppearance: 'none' }}>
         {/* <Home /> */}
         {/* <Product /> */}
         {/* <About /> */}
@@ -23,6 +23,7 @@ const App = () => {
           <Route path="/product" element={<Product />} />
           <Route path="/result" element={<Results />} />
         </Routes>
+        {/* <Dummy/> */}
       </div>
         <GlobalStyle />
     </BrowserRouter>

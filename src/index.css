@@ -1,32 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-/* body{
-    background-image: url('/src/images/background_2@2x.png');
-    
-}
-
-li{
-    background-color: #ffffffbe;
-    background-color: #076696;
-    font-family: m;
-}
-:root {
-    --maxWidth: 1280px; 
-    --white: #fff;
-    --lightGrey: #eee;
-    --medGrey: #353535; 
-    --darkGrey: #1c1c1c;
-    --fontSuperBig: 2.5rem;
-    --fontBig: 1.5rem;
-    --fontMed: 1.2rem;
-    --fontSmall: 1rem;
-  } */
-
-/* .hus{
-    background-color: #ffffff80;
-    background-color: #076696;
-    font-family: #bbbbbb;
-}  */
 
 /*--------------------------------------------------------------
 # Contact
@@ -163,7 +136,7 @@ li{
 }
 
 /*--------------------------------------------------------------
-# Results
+# Results PAGE
 --------------------------------------------------------------*/
 .results-col tr {
   border-bottom: 1px solid #f2f2f2;
@@ -179,7 +152,7 @@ li{
 }
 
 .card {
-  border: 1px solid#707070 !important;
+  border: 2px solid#707070 !important;
   border-radius: 0;
   /* z-index: -1; */
 }
@@ -187,26 +160,90 @@ li{
 .card thead {
   margin: 100px 30px !important;
 }
+
+
+/** Datatables styling */
+.card .sc-gYbzsP  {
+  background-color: #ffffff;
+  border-top: solid 2px #838383 !important;
+  border-bottom: solid 2px #838383 !important;
+  /* margin: 100px 30px !important; */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+ .sc-jcMfQk {
+  /* border: 1px solid green; */
+}
+.sc-cCjUiG.sc-cjibBx.sc-jcMfQk.zRMfT.PMvBe.dqgOUc.rdt_TableCell{
+  border-bottom: 1.5px solid #dcdcdc;
+  padding: 0;
+
+}
+span.sc-jOiSOi.GpcvJ{
+  font-size: 1.2rem;
+  /* color: #000000; */
+  background-size: 20px 20px;
+  background-image: url("./images/n_7808.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+
+}
+span.sc-jOiSOi.rZqkV , .cbrbug{
+display: none;
+}
+/* span.sc-jOiSOi.GpcvJ::before{
+content: '';
+} */
+
+/* .rdt_Table{
+  direction:rtl
+} */
+.rdt_TableCol{
+  direction: rtl;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sc-GhhNo.kwpMR.rdt_Pagination{
+  /* display: flex; */
+  /* justify-content: space-between; */
+
+}
+/* #mybox:hover {
+  color: transparent;
+} */
 .card thead tr {
   background-color: #f2f2f2;
   border-top: solid 2px #838383 !important;
   border-bottom: solid 2px #838383 !important;
   /* margin: 100px 30px !important; */
 }
+
 .nav-pills .nav-link.active {
   border-left: solid 5px #ed3c0d !important;
   background-color: rgba(255, 255, 255, 0.521);
   color: #000;
   border-radius: 0;
 }
+
 a.nav-link.m-links-list-item, a.nav-link.m-links-list-item.active {
   border: none !important;
   color: rgb(5, 5, 5) !important;
 
 
 }
-button.nav-link.dropdown{
+
+
+
+#v-pills-tabContent{
+  width: 60vw;
+}
+button.nav-link.dropdown-toggle{
   /* to be continued  */
+  margin-left: 20px;
 }
 .nav-links-list,
 .nav-links-list.active {

@@ -42,7 +42,7 @@ export const Flex = styled.div`
 	}
 	img {
 		height: 80px;
-		width: 80px;
+		width: 90px;
 		margin-left: 1.4rem;
 		/* al */
 		/* display: inline-block; */

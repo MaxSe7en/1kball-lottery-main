@@ -4,19 +4,14 @@ import ArrowIcon from "../../images/n_7808.png";
 import ArrowDownIcon from "../../images/arrow_2.png";
 import Text from "../Text/Text";
 import EmptyComponent from "../EmptyComponent/EmptyComponent";
-import DataTable from "react-data-table-component";
-import datas from "../../data.json";
-import { Table, Pagination } from "antd";
-
+import DataTable from 'react-data-table-component';
+import datas from '../../data.json'
 // import {CustomMaterialPagination} from "./Material";
 
 const Results = () => {
   const [toggle, setToggle] = useState(false);
   const [toggleArray, setToggleArray] = useState([false, false, false]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [data, setData] = useState([]);
-  const [total, setTotal] = useState(datas.length);
+
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -27,7 +22,7 @@ const Results = () => {
     setToggleArray(temp);
   };
 
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   console.log(datas);
 
   useEffect(() => {
@@ -35,7 +30,7 @@ const Results = () => {
       // const response = await fetch(
       //   "../../../data.json"
       // );
-      const response = datas;
+      const response =  datas
       // const json = await response.json();
       setData(response);
     }
@@ -43,73 +38,36 @@ const Results = () => {
   }, [data]);
   console.log(data);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const handlePageSizeChange = (current, size) => {
-    setPageSize(size);
-    console.log(size);
-    setCurrentPage(1);
-  };
-  const getData = (current, pageSize) => {
-    // Normally you should get the data from the server
-    return data.slice((current - 1) * pageSize, current * pageSize);
-  };
-  const paginationProps = {
-    current: currentPage,
-    pageSize: pageSize,
-    total: total,
-    onChange: handlePageChange,
-    showSizeChanger: false,
-    onShowSizeChange: handlePageSizeChange,
-    showTotal: (total, range) =>
-      `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-  };
-  const itemRender = (_, type, originalElement) => {
-    if (type === "prev") {
-      return <a>Previous</a>;
-    }
-    if (type === "next") {
-      return <a>Next</a>;
-    }
-    return originalElement;
-  };
-
   const columns = [
     {
-      title: "#",
-      selector: (row, i) => i + 1,
-      dataIndex: "dob",
-      key: "dob",
+      name: '#',
+      selector: (row, i) => i+1,
       // sortable: true,
     },
     {
-      title: `Number`,
+      name: 'Number',
       selector: (row, i) => row.name,
-      //   sortable: true,
-      dataIndex: `${ArrowIcon}`,
-      render:  () => <img src={ArrowIcon} alt="ss" /> ,
-      key: "name",
+      sortable: true,
     },
     {
-      title: "DrawDate",
+      name: 'DrawDate',
       selector: (row, i) => row.phone,
-      //   sortable: true,
-      dataIndex: "phone",
-      key: "phone",
+      sortable: true,
     },
     {
-      title: "DrawTime",
-      dataIndex: "email",
-      key: "email",
+      name: 'DrawTime',
       selector: (row, i) => row.email,
       sortable: true,
-      className: "letsgo",
-      rowId: "ships",
+      className: 'letsgo',
+      rowId: "ships"
     },
   ];
-
+  const paginationComponentOptions = {
+    rowsPerPageText: 'Showing',
+    rangeSeparatorText: 'of',
+    selectAllRowsItem: true,
+    selectAllRowsItemText: 'All',
+};
   return (
     <Wrapper>
       <Content>
@@ -286,17 +244,19 @@ You can view the latest numbers including detailed information of winners and pr
                   <div className="card-body p-5 bg-white ">
                     <div className="table-responsive">
                       <TableHeader>5 D .. 5D1</TableHeader>
-
-                      <Table
-                        columns={columns}
-                        dataSource={getData(currentPage, pageSize)}
-                        pagination={false}
-                        {...paginationProps}
-                      />
-                      <Pagination
-                        {...paginationProps}
-                        itemRender={itemRender}
-                      />
+                      <DataTable
+        // title="5 D .. 5D1"
+        columns={columns}
+        data={data}
+        pagination
+        className="max-class-name"
+        // paginationComponent={CustomMaterialPagination}
+        // paginationComponentOptions={paginationComponentOptions}
+        // striped
+        // bordered
+        // highlightOnHover
+      />
+                      
                     </div>
                   </div>
                 </div>
