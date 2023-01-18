@@ -181,9 +181,12 @@ tbody, td, tfoot, th, thead, tr{
 
 
  td {
-  border-top: solid 1px #838383 !important;
-  border-bottom: solid 1px #838383 !important;
-margin: 0;
+  border-top: solid 1px #b4b1b1 !important;
+  border-bottom: solid 1px #b4b1b1 !important;
+  margin: 0;
+  /* padding-top:20px;
+  padding-bottom:20px;
+  padding-right:20px; */
 }
 
 
@@ -201,15 +204,32 @@ margin: 0;
   border-radius: 0;
 } */
 
-thead.ant-table-thead{
-  background-color: rgb(151, 39, 243);
+thead.ant-table-thead tr 
+th.ant-table-cell {
+  /* background-color: rgb(151, 39, 243); */
+  text-align: center;
+  /* color: #e63b3b; */margin-bottom: 100px;
+}
+/* tbody.ant-table-tbody tr 
+td.ant-table-cell {
+  line-height: 100px
+
+} */
+thead.ant-table-thead tr 
+th.ant-table-cell span{
+  font-size: 16px;
+  font-weight: bold;
 }
 
-tbody.ant-table-tbody tr.ant-table-row{
-  /* background-color: #e63b3b; */
-  border: solid #000 1px;
-
+table{
+  /* table-layout: fixed !important; */
 }
+/* tbody.ant-table-tbody {
+  background-color: #e63b3b;
+  border-top: solid #000 1px;
+  padding-top: 200px;
+
+} */
 
  .sc-jcMfQk {
   /* border: 1px solid green; */
@@ -219,6 +239,14 @@ tbody.ant-table-tbody tr.ant-table-row{
   padding: 0;
 
 }
+
+div.ant-table-column-sorters .ant-table-column-sorter-full{
+  display: inline !important;
+  visibility: inherit;
+}
+
+span .ant-table-column-sorter-full{}
+
 span.sc-jOiSOi.GpcvJ{
   font-size: 1.2rem;
   /* color: #000000; */
@@ -287,10 +315,9 @@ ul.ant-pagination{
   justify-content: flex-end;
 }
 
-.sc-GhhNo.kwpMR.rdt_Pagination{
-  /* display: flex; */
-  /* justify-content: space-between; */
-
+tr.ant-table-row.ant-table-row-level-0:first-child{
+  /* height: 200px; */
+  margin-top: 200px;
 }
 
 /** End of Datateable styling */

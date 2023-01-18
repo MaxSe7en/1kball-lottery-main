@@ -14,7 +14,7 @@ const Results = () => {
   const [toggle, setToggle] = useState(false);
   const [toggleArray, setToggleArray] = useState([false, false, false]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(30);
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(datas.length);
   const handleToggle = () => {
@@ -28,7 +28,7 @@ const Results = () => {
   };
 
   // const [data, setData] = useState([]);
-  console.log(datas);
+  // console.log(datas);
 
   useEffect(() => {
     async function fetchData() {
@@ -41,7 +41,7 @@ const Results = () => {
     }
     fetchData();
   }, [data]);
-  console.log(data);
+  // console.log(data);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -49,12 +49,41 @@ const Results = () => {
 
   const handlePageSizeChange = (current, size) => {
     setPageSize(size);
-    console.log(size);
+    // console.log(size);
     setCurrentPage(1);
   };
   const getData = (current, pageSize) => {
     // Normally you should get the data from the server
     return data.slice((current - 1) * pageSize, current * pageSize);
+  };
+  const [sortedData, setSortedData] = useState(data.slice((currentPage - 1) * pageSize, currentPage * pageSize));
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    const { field, order } = sorter;
+    let newData = [...data];
+    if (field) {
+      newData = newData.sort((a, b) => {
+        if (order === 'ascend') {
+          return a[field] > b[field] ? 1 : -1;
+        } else {
+          return a[field] < b[field] ? 1 : -1;
+        }
+      });
+      setSortedData(newData);
+    }
+  }
+  const handleTableChanges = (pagination, filters, sorter) => {
+    const newData = [...data];
+    newData.sort((a, b) => {
+      const sortKey = sorter.field;
+      if (sortKey === 'name') {
+        return a[sortKey].localeCompare(b[sortKey]);
+      }
+      if (sortKey === 'age') {
+        return a[sortKey] - b[sortKey];
+      }
+    });
+    return setSortedData(newData);
   };
   const paginationProps = {
     current: currentPage,
@@ -66,6 +95,8 @@ const Results = () => {
     showTotal: (total, range) =>
       `Showing ${range[0]} to ${range[1]} of ${total} entries`,
   };
+
+
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") {
       return <a>Previous</a>;
@@ -75,40 +106,60 @@ const Results = () => {
     }
     return originalElement;
   };
+  
+  const sorter = (a, b) => (isNaN(a) && isNaN(b) ? (a || '').localeCompare(b || '') : a - b);
 
   const columns = [
     {
       title: "#",
-      selector: (row, i) => i + 1,
       dataIndex: "dob",
       key: "dob",
-      // sortable: true,
     },
     {
-      title: `Number`,
-      selector: (row, i) => row.name,
-      //   sortable: true,
+      title: (filters, sortOrder) => (
+        <>
+        <img src={ArrowDownIcon} alt="ss" />
+        <span>Number</span>
+        </>
+      ),
+      // sorter: (a,b) => sorter(a,b),
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    sortDirections: ['ascend', 'descend'],
       dataIndex: "name",
-      // render:  () => <img src={ArrowIcon} alt="ss" /> ,
+      
       key: "name",
     },
     {
-      title: "DrawDate",
-      selector: (row, i) => row.phone,
-      //   sortable: true,
+      title: () => (
+        <>
+        <img src={ArrowIcon} alt="ss" />
+        <span>DrawDate</span>
+        </>
+      ),
+      
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    
+    sortDirections: ['descend'],
       dataIndex: "phone",
       key: "phone",
     },
     {
-      title: "DrawTime",
+      title: (filters, sortOrder) => (
+        <>
+        <img src={ArrowIcon} alt="ss" />
+        <span>DrawTime</span>
+        </>
+      ) ,
+      sorter: (a, b) => a.name.localeCompare(b.name),
+
       dataIndex: "email",
       key: "email",
-      selector: (row, i) => row.email,
-      sortable: true,
       className: "letsgo",
       rowId: "ships",
     },
   ];
+ 
+  const paginatedData = currentPage === 1 ? sortedData : getData(currentPage, pageSize);
 
   return (
     <Wrapper>
@@ -290,8 +341,9 @@ You can view the latest numbers including detailed information of winners and pr
                       <Table
                         columns={columns}
                         dataSource={getData(currentPage, pageSize)}
+                        // dataSource={paginatedData}
                         pagination={false}
-                        {...paginationProps}
+                        onChange={handleTableChanges}
                         rowClassName={'no-hover'}
                         
                       />
@@ -1246,3 +1298,25 @@ You can view the latest numbers including detailed information of winners and pr
 };
 
 export default Results;
+// const sortData = (data) => {
+//   // Call slice to create a new Array and prevent mutating it if it's stored in state
+//   return data.slice().sort((a, b) => a.myKey - b.myKey);
+// }
+// const sortableColumns = columns.map(column => {
+//   const { sorter, dataIndex, ...otherColumnProps } = column;
+
+//   if (sorter) {
+//     const { compare, ...otherSorterProps } = sorter;
+
+//     return {
+//       ...otherColumnProps,
+//       dataIndex,
+//       sorter: {
+//         compare: (rowA, rowB) => compare(rowA[dataIndex], rowB[dataIndex]),
+//         ...otherSorterProps,
+//       }
+//     };
+//   }
+
+//   return column;
+// });

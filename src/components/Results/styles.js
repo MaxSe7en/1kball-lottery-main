@@ -31,6 +31,12 @@ export const Content = styled.div`
   }
   p {
   }
+  img{
+    margin-right: 4px;
+  }
+  table, tbody, td, tfoot, th, thead, tr{
+    text-align: center;
+  }
 `;
 
 export const Heading = styled.h1``;
