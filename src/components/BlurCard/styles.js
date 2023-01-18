@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-	margin: 2rem 0;
+	margin: 0;
 	/* display: flex;
 	align-items: center;
 	justify-content: center; */
@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
 	/* margin: 5% 10%; */
+	margin: 2rem 0;
 	height: fit-content;
 	border-radius: 10px;
 	background: #ffffffbe;

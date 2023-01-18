@@ -138,8 +138,8 @@
 /*--------------------------------------------------------------
 # Results PAGE
 --------------------------------------------------------------*/
-.results-col tr {
-  border-bottom: 1px solid #f2f2f2;
+.card-body  tr {
+  border-bottom: 2px solid #0a0a0a;
 }
 .result-toggle {
   height: 50px;
@@ -157,8 +157,9 @@
   /* z-index: -1; */
 }
 
-.card thead {
-  margin: 100px 30px !important;
+.card .table-responsive thead {
+  /* margin: 100px 30px !important; */
+  color: #e03a3c;
 }
 
 
@@ -171,6 +172,43 @@
   font-weight: bold;
   margin-bottom: 1rem;
   padding: 0;
+}
+tbody, td, tfoot, th, thead, tr{
+  /* color: #18d26e; */
+  /* border: solid #000 1px; */
+
+}
+
+
+ td {
+  border-top: solid 1px #838383 !important;
+  border-bottom: solid 1px #838383 !important;
+margin: 0;
+}
+
+
+/* :where(.css-dev-only-do-not-override-1i9hnpv).ant-table-wrapper .ant-table:not(.ant-table-bordered) .ant-table-tbody >tr:first-child>td, :where(.css-dev-only-do-not-override-1i9hnpv).ant-table-wrapper .ant-table:not(.ant-table-bordered) .ant-table-tbody >tr.ant-table-measure-row+tr>td {
+  border-radius: none;
+} */
+
+/* .no-hover:hover{
+  border-radius: 0px !important;
+  background-color: black;
+
+}
+
+.ant-table-cell-row-hover {
+  border-radius: 0;
+} */
+
+thead.ant-table-thead{
+  background-color: rgb(151, 39, 243);
+}
+
+tbody.ant-table-tbody tr.ant-table-row{
+  /* background-color: #e63b3b; */
+  border: solid #000 1px;
+
 }
 
  .sc-jcMfQk {
@@ -201,6 +239,48 @@ content: '';
 /* .rdt_Table{
   direction:rtl
 } */
+
+/* ant-pagination css-dev-only-do-not-override-1i9hnpv */
+
+ul.ant-pagination{
+  display: flex;
+  /* border:  solid; */
+  justify-content: space-between;
+  padding: 10px 10px;
+}
+[title = "Previous Page"] {
+  /* color:green; */
+  /* font-size:40px; */
+  /* font-weight:bold; */
+  /* text-align:center; */
+  margin: auto;
+}
+
+[title = "Previous Page"] :active{
+  /* background-color: #ff3567; */
+}
+
+.ant-pagination-prev[aria-disabled="false"]{
+  background-color: #ff3567;
+  color: #fff;
+  /* padding-left: 5px;
+  padding-right: 5px; */
+  padding: 0px 5px;
+
+}
+
+.ant-pagination-next[aria-disabled="false"]{
+  background-color: #ff3567;
+  color: #fff;
+  padding: 0px 5px;
+}
+
+
+:where(.css-dev-only-do-not-override-1i9hnpv).ant-pagination .ant-pagination-item-active{
+  border-color: #838383;
+
+}
+
 .rdt_TableCol{
   direction: rtl;
   display: flex;
@@ -212,6 +292,8 @@ content: '';
   /* justify-content: space-between; */
 
 }
+
+/** End of Datateable styling */
 /* #mybox:hover {
   color: transparent;
 } */
@@ -236,7 +318,15 @@ a.nav-link.m-links-list-item, a.nav-link.m-links-list-item.active {
 
 }
 
+/* .nav.m-margin.flex-column.nav-pills.me-3.col-lg-2{
+  text-align: left;
+  color: #18d26e;
+} */
 
+button.nav-link, a.nav-link.dropdown-toggle{
+  text-align: left;
+  padding-left: 3rem !important;
+}
 
 #v-pills-tabContent{
   width: 60vw;

@@ -7,7 +7,7 @@ const BlurCard = ({ heading, body }) => {
   //   console.log(bodyContents);
   let arr = [];
   let currentLocation = window.location.href;
-  if (typeof bodyContents !== undefined) {
+  if (typeof bodyContents !== "undefined") {
     
     // arr = bodyContents.trim().split(",  ");
     

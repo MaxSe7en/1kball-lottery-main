@@ -8,6 +8,7 @@ export const Wrapper = styled.nav`
 	display: flex;
 	flex-direction: column;
 	z-index: 1;
+	/* margin: ; */
 	/* align-items: center; */
 	/* background-color: blueviolet; */
 	/* justify-content: space-around; */
@@ -19,11 +20,11 @@ export const Content = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	/* max-width: var(--maxWidth); */
-	padding: 0 20px;
-	height: 60px;
+	padding-right: 20px;
+	height: 75px;
 	position: relative;
 
-	/* margin: 0 auto; */
+	margin-bottom: 0px;
 
 	background-color: #e5e5e5;
 `;
@@ -65,10 +66,15 @@ export const NavList = styled.div`
 
 export const Logo = styled.img`
 	position: relative;
-	top: 20px;
+	top: 0px;
+	left: 0px;
+	width: 170px;
+	height: 75px;
 `;
 
-export const RightContent = styled.div``;
+export const RightContent = styled.div`
+margin-bottom: 0px;
+`;
 
 export const SearchBar = styled.div`
 	display: inline;

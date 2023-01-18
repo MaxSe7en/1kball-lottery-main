@@ -88,8 +88,8 @@ const Results = () => {
       title: `Number`,
       selector: (row, i) => row.name,
       //   sortable: true,
-      dataIndex: `${ArrowIcon}`,
-      render:  () => <img src={ArrowIcon} alt="ss" /> ,
+      dataIndex: "name",
+      // render:  () => <img src={ArrowIcon} alt="ss" /> ,
       key: "name",
     },
     {
@@ -175,7 +175,7 @@ You can view the latest numbers including detailed information of winners and pr
                 5 D
               </a>
               <ul
-                className="collapse nav-list-pane text-center bg-white text-black"
+                className="collapse nav-list-pane  bg-white text-black"
                 id="collapsePane"
               >
                 <li>
@@ -292,6 +292,8 @@ You can view the latest numbers including detailed information of winners and pr
                         dataSource={getData(currentPage, pageSize)}
                         pagination={false}
                         {...paginationProps}
+                        rowClassName={'no-hover'}
+                        
                       />
                       <Pagination
                         {...paginationProps}
@@ -313,13 +315,13 @@ You can view the latest numbers including detailed information of winners and pr
                 className="col-lg-12 m-col-table"
                 style={{ paddingLeft: "0" }}
               >
-                <div className="card shadow border-0">
+                <div className="card shadow border-1">
                   <div className="card-body p-5 bg-white ">
-                    <div className="table-responsive">
+                    <div className="table-responsive ">
                       <table
                         id="example"
                         style={{ width: "100%" }}
-                        className="table "
+                        className="table table-bordered"
                       >
                         <thead>
                           <tr>

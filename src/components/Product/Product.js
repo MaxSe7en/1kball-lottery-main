@@ -9,7 +9,7 @@ const Product = () => {
       {/* <Content>
             Product
         </Content> */}
-      <BlurCard
+      <BlurCard className="p-blur-card"
         heading="5 D"
         body={`The draw will open every 1.5 minute. Total 840 draws.
 Each winning numbers consists of a 5-digit number.
