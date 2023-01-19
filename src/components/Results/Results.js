@@ -6,7 +6,7 @@ import Text from "../Text/Text";
 import EmptyComponent from "../EmptyComponent/EmptyComponent";
 import DataTable from "react-data-table-component";
 import datas from "../../data.json";
-import { Table, Pagination } from "antd";
+import { Table, Pagination, Spin } from "antd";
 
 // import {CustomMaterialPagination} from "./Material";
 
@@ -16,6 +16,7 @@ const Results = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(30);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(datas.length);
   const handleToggle = () => {
     setToggle(!toggle);
@@ -31,15 +32,21 @@ const Results = () => {
   // console.log(datas);
 
   useEffect(() => {
-    async function fetchData() {
-      // const response = await fetch(
-      //   "../../../data.json"
-      // );
+    // async function fetchData() {
+    //   // const response = await fetch(
+    //   //   "../../../data.json"
+    //   // );
+    //   const response = datas;
+    //   // const json = await response.json();
+    //   setData(response);
+    // }
+    setTimeout(() => {
       const response = datas;
-      // const json = await response.json();
+
       setData(response);
-    }
-    fetchData();
+      setLoading(false);
+    }, 2000);
+    // fetchData();
   }, [data]);
   // console.log(data);
 
@@ -339,7 +346,7 @@ You can view the latest numbers including detailed information of winners and pr
                   <div className="card-body p-5 bg-white ">
                     <div className="table-responsive">
                       <TableHeader>5 D .. 5D1</TableHeader>
-
+                      <Spin spinning={loading}>
                       <Table
                         columns={columns}
                         dataSource={getData(currentPage, pageSize)}
@@ -353,6 +360,7 @@ You can view the latest numbers including detailed information of winners and pr
                         {...paginationProps}
                         itemRender={itemRender}
                       />
+                      </Spin>
                     </div>
                   </div>
                 </div>
