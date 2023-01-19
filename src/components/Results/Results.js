@@ -72,6 +72,7 @@ const Results = () => {
       setSortedData(newData);
     }
   }
+
   const handleTableChanges = (pagination, filters, sorter) => {
     const newData = [...data];
     newData.sort((a, b) => {
@@ -85,12 +86,13 @@ const Results = () => {
     });
     return setSortedData(newData);
   };
+
   const paginationProps = {
     current: currentPage,
     pageSize: pageSize,
     total: total,
     onChange: handlePageChange,
-    showSizeChanger: false,
+    showSizeChanger: true,
     onShowSizeChange: handlePageSizeChange,
     showTotal: (total, range) =>
       `Showing ${range[0]} to ${range[1]} of ${total} entries`,
@@ -124,7 +126,7 @@ const Results = () => {
       ),
       // sorter: (a,b) => sorter(a,b),
       sorter: (a, b) => a.name.localeCompare(b.name),
-    sortDirections: ['ascend', 'descend'],
+    sortDirections: ['descend'],
       dataIndex: "name",
       
       key: "name",
@@ -139,7 +141,7 @@ const Results = () => {
       
       sorter: (a, b) => a.name.localeCompare(b.name),
     
-    sortDirections: ['descend'],
+    sortDirections:  ['ascend', 'descend'],
       dataIndex: "phone",
       key: "phone",
     },
