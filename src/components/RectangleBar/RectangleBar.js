@@ -12,21 +12,22 @@ const RectangleBar = () => {
 		<Wrapper>
 			<Content>
 				<RectangleCon>
-					<img src={Tech} alt="Proprietary tech" srcSet={Tech2} />
-					<span>Proprietary tech</span>
+					<img src={Tech} style={{marginRight: "1rem" }} className="img-fluid" alt="Proprietary tech" srcSet={Tech2} />
+					<span className="display-2">Proprietary tech</span>
 				</RectangleCon>
 				<RectangleCon>
 					<img
 						src={Stream}
-						style={{ width: "90px", height: "90px" }}
+						
 						alt="Continuous live stream"
+						className="img-fluid"
 						srcSet={Stream2}
 					/>
-					<span>Continuous live stream</span>
+					<span className="display-2">Continuous live stream</span>
 				</RectangleCon>
 				<RectangleCon>
-					<img src={Adjust} alt="Adjustable odds" srcSet={Adjust2} />
-					<span>Adjustable odds</span>
+					<img src={Adjust} style={{marginRight: "1rem" }} className="img-fluid" alt="Adjustable odds" srcSet={Adjust2} />
+					<span className="display-2">Adjustable odds</span>
 				</RectangleCon>
 			</Content>
 		</Wrapper>

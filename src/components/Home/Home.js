@@ -6,20 +6,21 @@ import RectangleBar from "../RectangleBar/RectangleBar";
 import BlurCardImg from "../BlurCardImg/BlurCardImg";
 import Text from "../Text/Text";
 
-import Manager from "../../images/manager@2x.png";
-import Manager2 from "../../images/manager.png";
-import Report from "../../images/reports@2x.png";
-import Report2 from "../../images/reports.png";
-import Tech from "../../images/n_250593_ms@2x.png";
-import Tech2 from "../../images/n_250593_ms.png";
-import Secure from "../../images/n_02649@2x.png";
-import Secure2 from "../../images/n_02649.png";
-import Gamepad from "../../images/made_for_player@2x.png";
-import Gamepad2 from "../../images/made_for_player.png";
-import Responsive from "../../images/responsive@2x.png";
-import Responsive2 from "../../images/responsive.png";
-import Paint from "../../images/n_1-419128_paint-palette-and-b@2x.png";
-import Paint2 from "../../images/n_1-419128_paint-palette-and-b.png";
+import images from "../../constants/images";
+// import images.Manager from "../../images/images.Manager@2x.png";
+// import images.Manager2 from "../../images/images.Manager.png";
+// import images.Report from "../../images/images.Reports@2x.png";
+// import images.Report2 from "../../images/images.Reports.png";
+// import images.Tech from "../../images/n_250593_ms@2x.png";
+// import images.Tech2 from "../../images/n_250593_ms.png";
+// import Secure from "../../images/n_02649@2x.png";
+// import Secure2 from "../../images/n_02649.png";
+// import Gamepad from "../../images/made_for_player@2x.png";
+// import Gamepad2 from "../../images/made_for_player.png";
+// import images.Responsive from "../../images/images.Responsive@2x.png";
+// import images.Responsive2 from "../../images/images.Responsive.png";
+// import images.Paint from "../../images/n_1-419128_images.Paint-palette-and-b@2x.png";
+// import images.Paint2 from "../../images/n_1-419128_images.Paint-palette-and-b.png";
 import EmptyComponent from "../EmptyComponent/EmptyComponent";
 
 const Home = () => {
@@ -38,8 +39,8 @@ and create an all-round entertainment environment.'
         <Text
           heading="Easy integration of our elegant product"
           body="Our intuitive and beautifully crafted interfaces offered by our team of
-gaming and tech professionals are built to allow unobstructed playtime
-for players and total transparency and control for managers. They are elegant,
+gaming and images.Tech professionals are built to allow unobstructed playtime
+for players and total transparency and control for images.Managers. They are elegant,
 simple, and without lag time offering a robust but intuitive control."
         />
         <GridContainer />
@@ -52,11 +53,11 @@ simple, and without lag time offering a robust but intuitive control."
         headfour="HIGH-LEVEL REPORTING"
         headfive="24/7 FULL SUPPORT"
         headsix="OPTIMAL SECURITY"
-        imgone={Manager}
-        imgtwo={Report}
-        imgthree={Tech}
-        imgfour={Secure}
-        paraone={`Data should make your lottery manager’s job easier.\n\n That’s why we’ve built a detailed yet simple backoffice with high-level reporting with full statistics about games, players, payouts and 24/7 technical and ticket support.`}
+        imgone={images.Manager}
+        imgtwo={images.Report}
+        imgthree={images.Tech}
+        imgfour={images.Secure}
+        paraone={`Data should make your lottery images.Manager’s job easier.\n\n That’s why we’ve built a detailed yet simple backoffice with high-level images.Reporting with full statistics about games, players, payouts and 24/7 images.Technical and ticket support.`}
         paratwo="Our system is extremely flexible and can be integrated into your current gaming platform within short period of time via manageable API’s. You maintain control of the data at all time, allowing for optimal security of your database."
       />
       <BlurCardImg
@@ -66,12 +67,12 @@ simple, and without lag time offering a robust but intuitive control."
         headfour="FULLY RESPONSIVE"
         headfive="BEAUTIFULLY
 				CRAFTED UI"
-        imgone={Gamepad}
-        imgtwo={Responsive}
-        imgthree={Paint}
+        imgone={images.Gamepad}
+        imgtwo={images.Responsive}
+        imgthree={images.Paint}
         paraone={`The design and functionality of the lottery front-end is key to success and profitability.
 				We designed elegant, simple and beautiful front-end interface which guarantee intuitive user journey.`}
-        paratwo="Using HTML5 technology allows us to offer cross-platform solution for
+        paratwo="Using HTML5 images.Technology allows us to offer cross-platform solution for
 				non-stop gaming experience for our players."
       />
       <EmptyComponent />

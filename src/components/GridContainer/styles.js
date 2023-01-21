@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 	grid-row-gap: 30px;
 
 	div {
-		width: 469px;
+		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
 		color: var(--white);
 		font-size: var(--fontBig);
 		border-radius: 5px;
-		
+		text-align: center;
 		/* ff 3.6+ */
 		background: -moz-linear-gradient(180deg, #f18ebe 1%, #398eec 100%);
 

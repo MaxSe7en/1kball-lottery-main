@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Wrapper, Content, Heading, TableHeader } from "./styles";
-import ArrowIcon from "../../images/n_7808.png";
-import ArrowDownIcon from "../../images/arrow_2.png";
+import images from "../../constants/images"
 import Text from "../Text/Text";
 import EmptyComponent from "../EmptyComponent/EmptyComponent";
-import DataTable from "react-data-table-component";
 import datas from "../../data.json";
 import { Table, Pagination, Spin } from "antd";
 
@@ -32,21 +30,23 @@ const Results = () => {
   // console.log(datas);
 
   useEffect(() => {
-    // async function fetchData() {
-    //   // const response = await fetch(
-    //   //   "../../../data.json"
-    //   // );
-    //   const response = datas;
-    //   // const json = await response.json();
-    //   setData(response);
-    // }
-    setTimeout(() => {
-      const response = datas;
-
-      setData(response);
+    async function fetchData(url) {
+      // console.log(url)
+      const response = await fetch(
+         url
+      );
+      // const response = datas;
+      const json = await response.json();
+      setData(json);
       setLoading(false);
-    }, 2000);
-    // fetchData();
+    }
+    // setTimeout(() => {
+    //   const response = datas;
+
+    //   setData(response);
+    //   setLoading(false);
+    // }, 2000);
+    fetchData("https://jsonplaceholder.typicode.com/posts");
   }, [data]);
   // console.log(data);
 
@@ -61,6 +61,7 @@ const Results = () => {
   };
   const getData = (current, pageSize) => {
     // Normally you should get the data from the server
+    // console.log(pageSize);
     return data.slice((current - 1) * pageSize, current * pageSize);
   };
   const [sortedData, setSortedData] = useState(data.slice((currentPage - 1) * pageSize, currentPage * pageSize));
@@ -84,10 +85,11 @@ const Results = () => {
     const newData = [...data];
     newData.sort((a, b) => {
       const sortKey = sorter.field;
-      if (sortKey === 'name') {
+      console.log(sortKey)
+      if (sortKey === 'title') {
         return a[sortKey].localeCompare(b[sortKey]);
       }
-      if (sortKey === 'age') {
+      if (sortKey === 'userId') {
         return a[sortKey] - b[sortKey];
       }
     });
@@ -121,53 +123,53 @@ const Results = () => {
   const columns = [
     {
       title: "#",
-      dataIndex: "dob",
-      key: "dob",
+      dataIndex: "id",
+      key: "id",
     },
     {
       title: (filters, sortOrder) => (
         <>
-        <img src={ArrowDownIcon} alt="ss" />
+        <img src={images.ArrowDownIcon} alt="ss" />
         <span>Number</span>
         </>
       ),
-      // sorter: (a,b) => sorter(a,b),
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    sortDirections: ['descend'],
-      dataIndex: "name",
+      sorter: (a,b) => sorter(a.userId,b.userId),
+      // sorter: (a, b) => a.age - b.age,
+    sortDirections: ['descend', "ascend"],
+      dataIndex: "userId",
       
-      key: "name",
+      key: "userId",
     },
     {
       title: () => (
         <>
-        <img src={ArrowIcon} alt="ss" />
+        <img src={images.ArrowIcon} alt="ss" />
         <span>DrawDate</span>
         </>
       ),
       
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      sorter: (a, b) => sorter(a.title,b.title),
     
     sortDirections:  ['ascend', 'descend'],
-      dataIndex: "phone",
-      key: "phone",
+      dataIndex: "title",
+      key: "title",
     },
     {
       title: (filters, sortOrder) => (
         <>
-        <img src={ArrowIcon} alt="ss" />
+        <img src={images.ArrowIcon} alt="ss" />
         <span>DrawTime</span>
         </>
       ) ,
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      sorter: (a, b) => sorter(a.body,b.body),
 
-      dataIndex: "email",
-      key: "email",
+      dataIndex: "body",
+      key: "body",
       className: "letsgo",
       rowId: "ships",
     },
   ];
- 
+  const getActions = (type) => {console.log('getting actions')}
   const paginatedData = currentPage === 1 ? sortedData : getData(currentPage, pageSize);
 
   return (
@@ -225,14 +227,14 @@ You can view the latest numbers including detailed information of winners and pr
             <li className="nav-item dropdown">
               {/* work on styling the button */}
               <a
-                className="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle d-flex align-items-center justify-content-between"
                 data-bs-toggle="collapse"
                 href="#collapsePane"
                 role="button"
                 aria-expanded="false"
                 aria-controls="collapsePane"
               >
-                5 D
+                5 D <img src={images.downArrowIcon} alt="ss" />
               </a>
               <ul
                 className="collapse nav-list-pane  bg-white text-black"
@@ -249,6 +251,7 @@ You can view the latest numbers including detailed information of winners and pr
                     href="#"
                     aria-controls="v-pills-profile"
                     aria-selected="false"
+                    // onClick={()=> fetchData()}
                   >
                     Action
                   </a>
@@ -256,12 +259,12 @@ You can view the latest numbers including detailed information of winners and pr
                 <li>
                   <a
                     className="nav-link m-links-list-item"
-                    id="v-pills-profile-tab"
+                    id="v-pills-disabled-tab"
                     data-bs-toggle="pill"
-                    data-bs-target="#v-pills-profile"
+                    data-bs-target="#v-pills-disabled"
                     type="button"
                     role="tab"
-                    aria-controls="v-pills-profile"
+                    aria-controls="v-pills-disabled"
                     aria-selected="false"
                   >
                     Another
@@ -340,7 +343,7 @@ You can view the latest numbers including detailed information of winners and pr
             >
               <div
                 className="col-lg-12 m-col-table"
-                style={{ paddingLeft: "0" }}
+                style={{  }}
               >
                 <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
@@ -377,216 +380,25 @@ You can view the latest numbers including detailed information of winners and pr
                 className="col-lg-12 m-col-table"
                 style={{ paddingLeft: "0" }}
               >
-                <div className="card shadow border-1">
+                <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
-                    <div className="table-responsive ">
-                      <table
-                        id="example"
-                        style={{ width: "100%" }}
-                        className="table table-bordered"
-                      >
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>
-                              <img src={ArrowDownIcon} alt="ss" />
-                              Number
-                            </th>
-                            <th>
-                              <img src={ArrowIcon} alt="ss" />
-                              DrawDate
-                            </th>
-                            <th>
-                              <img src={ArrowIcon} alt="ss" />
-                              DrawTime
-                            </th>
-                            {/* <th>Start date</th>
-                  <th>Salary</th> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                          </tr>
-                          <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                          </tr>
-                          <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                          </tr>
-                          <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                          </tr>
-                          <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Quinn Flynn</td>
-                            <td>Support Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>36</td>
-                          </tr>
-                          <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>43</td>
-                          </tr>
-                          <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>19</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Paul Byrd</td>
-                            <td>Chief Financial Officer (CFO)</td>
-                            <td>New York</td>
-                            <td>64</td>
-                          </tr>
-                          <tr>
-                            <td>Gloria Little</td>
-                            <td>Systems Administrator</td>
-                            <td>New York</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>41</td>
-                          </tr>
-                          <tr>
-                            <td>Dai Rios</td>
-                            <td>Personnel Lead</td>
-                            <td>Edinburgh</td>
-                            <td>35</td>
-                          </tr>
-                          <tr>
-                            <td>Jenette Caldwell</td>
-                            <td>Development Lead</td>
-                            <td>New York</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Yuri Berry</td>
-                            <td>Chief Marketing Officer (CMO)</td>
-                            <td>New York</td>
-                            <td>40</td>
-                          </tr>
-                          <tr>
-                            <td>Caesar Vance</td>
-                            <td>Pre-Sales Support</td>
-                            <td>New York</td>
-                            <td>21</td>
-                          </tr>
-                          <tr>
-                            <td>Doris Wilder</td>
-                            <td>Sales Assistant</td>
-                            <td>Sidney</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Angelica Ramos</td>
-                            <td>Chief Executive Officer (CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                          </tr>
-                          <tr>
-                            <td>Gavin Joyce</td>
-                            <td>Developer</td>
-                            <td>Edinburgh</td>
-                            <td>42</td>
-                          </tr>
-                          <tr>
-                            <td>Jennifer Chang</td>
-                            <td>Regional Director</td>
-                            <td>Singapore</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Fiona Green</td>
-                            <td>Chief Operating Officer (COO)</td>
-                            <td>San Francisco</td>
-                            <td>48</td>
-                          </tr>
-                          <tr>
-                            <td>Shou Itou</td>
-                            <td>Regional Marketing</td>
-                            <td>Tokyo</td>
-                            <td>20</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div className="table-responsive">
+                      <TableHeader>5 D .. 5D1</TableHeader>
+                      <Spin spinning={loading}>
+                      <Table
+                        columns={columns}
+                        dataSource={getData(currentPage, pageSize)}
+                        // dataSource={paginatedData}
+                        pagination={false}
+                        onChange={handleTableChanges}
+                        rowClassName={'no-hover'}
+                        
+                      />
+                      <Pagination
+                        {...paginationProps}
+                        itemRender={itemRender}
+                      />
+                      </Spin>
                     </div>
                   </div>
                 </div>
@@ -606,242 +418,22 @@ You can view the latest numbers including detailed information of winners and pr
                 <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
                     <div className="table-responsive">
-                      <table
-                        id="example"
-                        style={{ width: "100%" }}
-                        className="table "
-                      >
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>
-                              <img src={ArrowDownIcon} alt="ss" />
-                              Number
-                            </th>
-                            <th>
-                              <img src={ArrowIcon} alt="ss" />
-                              DrawDate
-                            </th>
-                            <th>
-                              <img src={ArrowIcon} alt="ss" />
-                              DrawTime
-                            </th>
-                            {/* <th>Start date</th>
-                  <th>Salary</th> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                          </tr>
-                          <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                          </tr>
-                          <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                          </tr>
-                          <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                          </tr>
-                          <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Quinn Flynn</td>
-                            <td>Support Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>36</td>
-                          </tr>
-                          <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>43</td>
-                          </tr>
-                          <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>19</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Paul Byrd</td>
-                            <td>Chief Financial Officer (CFO)</td>
-                            <td>New York</td>
-                            <td>64</td>
-                          </tr>
-                          <tr>
-                            <td>Gloria Little</td>
-                            <td>Systems Administrator</td>
-                            <td>New York</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>41</td>
-                          </tr>
-                          <tr>
-                            <td>Dai Rios</td>
-                            <td>Personnel Lead</td>
-                            <td>Edinburgh</td>
-                            <td>35</td>
-                          </tr>
-                          <tr>
-                            <td>Jenette Caldwell</td>
-                            <td>Development Lead</td>
-                            <td>New York</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Yuri Berry</td>
-                            <td>Chief Marketing Officer (CMO)</td>
-                            <td>New York</td>
-                            <td>40</td>
-                          </tr>
-                          <tr>
-                            <td>Caesar Vance</td>
-                            <td>Pre-Sales Support</td>
-                            <td>New York</td>
-                            <td>21</td>
-                          </tr>
-                          <tr>
-                            <td>Doris Wilder</td>
-                            <td>Sales Assistant</td>
-                            <td>Sidney</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Angelica Ramos</td>
-                            <td>Chief Executive Officer (CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                          </tr>
-                          <tr>
-                            <td>Gavin Joyce</td>
-                            <td>Developer</td>
-                            <td>Edinburgh</td>
-                            <td>42</td>
-                          </tr>
-                          <tr>
-                            <td>Jennifer Chang</td>
-                            <td>Regional Director</td>
-                            <td>Singapore</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Fiona Green</td>
-                            <td>Chief Operating Officer (COO)</td>
-                            <td>San Francisco</td>
-                            <td>48</td>
-                          </tr>
-                          <tr>
-                            <td>Shou Itou</td>
-                            <td>Regional Marketing</td>
-                            <td>Tokyo</td>
-                            <td>20</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              Previous
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              1
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              2
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              3
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              Next
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
+                      <TableHeader>5 D .. 5D1</TableHeader>
+                      <Spin spinning={loading}>
+                      <Table
+                        columns={columns}
+                        dataSource={getData(currentPage, pageSize)}
+                        // dataSource={paginatedData}
+                        pagination={false}
+                        onChange={handleTableChanges}
+                        rowClassName={'no-hover'}
+                        
+                      />
+                      <Pagination
+                        {...paginationProps}
+                        itemRender={itemRender}
+                      />
+                      </Spin>
                     </div>
                   </div>
                 </div>
@@ -861,213 +453,22 @@ You can view the latest numbers including detailed information of winners and pr
                 <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
                     <div className="table-responsive">
-                      <table
-                        id="example"
-                        style={{ width: "100%" }}
-                        className="table "
-                      >
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>
-                              <img src={ArrowDownIcon} alt="ss" />
-                              Number
-                            </th>
-                            <th>
-                              <img src={ArrowIcon} alt="ss" />
-                              DrawDate
-                            </th>
-                            <th>
-                              <img src={ArrowIcon} alt="ss" />
-                              DrawTime
-                            </th>
-                            {/* <th>Start date</th>
-                  <th>Salary</th> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                          </tr>
-                          <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                          </tr>
-                          <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                          </tr>
-                          <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                          </tr>
-                          <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Quinn Flynn</td>
-                            <td>Support Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>36</td>
-                          </tr>
-                          <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>43</td>
-                          </tr>
-                          <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>19</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Paul Byrd</td>
-                            <td>Chief Financial Officer (CFO)</td>
-                            <td>New York</td>
-                            <td>64</td>
-                          </tr>
-                          <tr>
-                            <td>Gloria Little</td>
-                            <td>Systems Administrator</td>
-                            <td>New York</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>41</td>
-                          </tr>
-                          <tr>
-                            <td>Dai Rios</td>
-                            <td>Personnel Lead</td>
-                            <td>Edinburgh</td>
-                            <td>35</td>
-                          </tr>
-                          <tr>
-                            <td>Jenette Caldwell</td>
-                            <td>Development Lead</td>
-                            <td>New York</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Yuri Berry</td>
-                            <td>Chief Marketing Officer (CMO)</td>
-                            <td>New York</td>
-                            <td>40</td>
-                          </tr>
-                          <tr>
-                            <td>Caesar Vance</td>
-                            <td>Pre-Sales Support</td>
-                            <td>New York</td>
-                            <td>21</td>
-                          </tr>
-                          <tr>
-                            <td>Doris Wilder</td>
-                            <td>Sales Assistant</td>
-                            <td>Sidney</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Angelica Ramos</td>
-                            <td>Chief Executive Officer (CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                          </tr>
-                          <tr>
-                            <td>Gavin Joyce</td>
-                            <td>Developer</td>
-                            <td>Edinburgh</td>
-                            <td>42</td>
-                          </tr>
-                          <tr>
-                            <td>Jennifer Chang</td>
-                            <td>Regional Director</td>
-                            <td>Singapore</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Fiona Green</td>
-                            <td>Chief Operating Officer (COO)</td>
-                            <td>San Francisco</td>
-                            <td>48</td>
-                          </tr>
-                          <tr>
-                            <td>Shou Itou</td>
-                            <td>Regional Marketing</td>
-                            <td>Tokyo</td>
-                            <td>20</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <TableHeader>5 D .. 5D1</TableHeader>
+                      <Spin spinning={loading}>
+                      <Table
+                        columns={columns}
+                        dataSource={getData(currentPage, pageSize)}
+                        // dataSource={paginatedData}
+                        pagination={false}
+                        onChange={handleTableChanges}
+                        rowClassName={'no-hover'}
+                        
+                      />
+                      <Pagination
+                        {...paginationProps}
+                        itemRender={itemRender}
+                      />
+                      </Spin>
                     </div>
                   </div>
                 </div>
@@ -1096,15 +497,15 @@ You can view the latest numbers including detailed information of winners and pr
                           <tr>
                             <th>#</th>
                             <th>
-                              <img src={ArrowDownIcon} alt="ss" />
+                              <img src={images.ArrowDownIcon} alt="ss" />
                               Number
                             </th>
                             <th>
-                              <img src={ArrowIcon} alt="ss" />
+                              <img src={images.ArrowIcon} alt="ss" />
                               DrawDate
                             </th>
                             <th>
-                              <img src={ArrowIcon} alt="ss" />
+                              <img src={images.ArrowIcon} alt="ss" />
                               DrawTime
                             </th>
                             {/* <th>Start date</th>

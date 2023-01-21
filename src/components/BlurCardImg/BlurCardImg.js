@@ -21,20 +21,20 @@ const BlurCardImg = ({
 				<h1>{headtwo}</h1>
 				<Flex>
 					<div>
-						<img src={imgone} alt={headthree} srcSet="" />
+						<img className="img-fluid" src={imgone} alt={headthree} srcSet="" />
 						<h2>{headthree}</h2>
 					</div>
 					<div>
-						<img src={imgtwo} alt={headfour} srcSet="" />
+						<img className="img-fluid" src={imgtwo} alt={headfour} srcSet="" />
 						<h2>{headfour}</h2>
 					</div>
 					<div>
-						<img src={imgthree} alt={headfive} srcSet="" />
+						<img className="img-fluid" src={imgthree} alt={headfive} srcSet="" />
 						<h2>{headfive}</h2>
 					</div>
 					{imgfour !== undefined ?(
 						<div>
-						<img src={imgfour} alt={headsix} srcSet="" />
+						<img className="img-fluid" src={imgfour} alt={headsix} srcSet="" />
 						<h2>{headsix}</h2>
 					</div>
 					) :<noscript></noscript> } 

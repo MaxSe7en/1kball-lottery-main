@@ -296,6 +296,11 @@ tbody:before {
   line-height: 3em;
 }
 
+.nav-link.dropdown-toggle::after{
+  /* color: green; */
+  display: none;
+}
+
 /** End of Datateable styling */
 /* #mybox:hover {
   color: transparent;
@@ -309,7 +314,7 @@ tbody:before {
 
 .nav-pills .nav-link.active {
   background-color: rgba(255, 255, 255, 0.521);
-  border-left: solid 5px #ed3c0d !important;
+  border-left: solid 8px #ff3567 !important;
   border-radius: 0;
   color: #000;
 }
