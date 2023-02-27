@@ -5,17 +5,31 @@ import Text from "../Text/Text";
 import EmptyComponent from "../EmptyComponent/EmptyComponent";
 import datas from "../../data.json";
 import { Table, Pagination, Spin } from "antd";
+import axios from "axios";
+import { IoIosArrowDown } from "react-icons/io"
+import ApiData from "../Apis/ApiData";
+
+
 
 // import {CustomMaterialPagination} from "./Material";
 
-const Results = () => {
+const Results = ({hidePage}) => {
+
+
   const [toggle, setToggle] = useState(false);
   const [toggleArray, setToggleArray] = useState([false, false, false]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(30);
+  const [pageSize, setPageSize] = useState(10);
   const [data, setData] = useState([]);
+  const [game_names, setGameNames] = useState([]);
+  const [game_category, setGameCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(datas.length);
+  const [gameNamePlaceholder, setGameNamePlaceholder] = useState("5D GAME")
+ 
+
+ 
+
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -26,29 +40,72 @@ const Results = () => {
     setToggleArray(temp);
   };
 
-  // const [data, setData] = useState([]);
-  // console.log(datas);
-
   useEffect(() => {
-    async function fetchData(url) {
-      // console.log(url)
-      const response = await fetch(
-         url
-      );
-      // const response = datas;
-      const json = await response.json();
-      setData(json);
-      setLoading(false);
-    }
-    // setTimeout(() => {
-    //   const response = datas;
-
-    //   setData(response);
+    // async function fetchData(url) {
+     
+    //   const response = await fetch(
+    //      url
+    //   ); 
+     
+    //   const json = await response.json();
+    //   setData(json);
     //   setLoading(false);
-    // }, 2000);
-    fetchData("https://jsonplaceholder.typicode.com/posts");
-  }, [data]);
-  // console.log(data);
+    // }
+  
+    //fetchData("http://192.168.199.120/1kball/dev/api/v1/1kball1min");
+    
+    fetchDefaultData()
+
+    getFirstGame()
+    
+
+
+  }, []);
+
+
+  
+
+
+  // http://192.168.199.120/1kball/dev/
+  const fetchDefaultData = async (url = "http://89.47.162.79/1kball/dev/api/v1/gamecat") => {
+    const {data} = await axios.get(url)
+
+         
+
+    //const newData = data.filter((element) => element !== data.))
+
+    setGameNames(data);
+    setLoading(false);
+
+    console.log("Game names  ",data);
+    // <ApiData data={[1,3,4]} />
+
+ }
+
+
+ const getFirstGame = async () => {
+    const response = await axios.get("http://89.47.162.79/1kball/dev/api/v1/1kball1min")
+    setData(response.data);
+ }
+
+
+
+ const getEachDataFromUrl = async (url, index, count, e) => {
+
+      e.target.className = "is-active";
+      
+      e.currentTarget.addEventListener("blur", (ex)=> {
+        e.target.className = "";
+      })
+    
+   const {data} = await axios.get(url)
+ 
+    setData(data); 
+
+ }
+
+
+
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -121,24 +178,24 @@ const Results = () => {
   const sorter = (a, b) => (isNaN(a) && isNaN(b) ? (a || '').localeCompare(b || '') : a - b);
 
   const columns = [
-    {
-      title: "#",
-      dataIndex: "id",
-      key: "id",
-    },
+    // {
+    //   title: "#",
+    //   dataIndex: "id",
+    //   key: "id",
+    // },
     {
       title: (filters, sortOrder) => (
         <>
         <img src={images.ArrowDownIcon} alt="ss" />
-        <span>Number</span>
+        <span>DrawCount</span>
         </>
       ),
-      sorter: (a,b) => sorter(a.userId,b.userId),
+      sorter: (a,b) => sorter(a.draw_count,b.draw_count),
       // sorter: (a, b) => a.age - b.age,
     sortDirections: ['descend', "ascend"],
-      dataIndex: "userId",
+      dataIndex: "draw_count",
       
-      key: "userId",
+      key: "draw_count",
     },
     {
       title: () => (
@@ -148,11 +205,25 @@ const Results = () => {
         </>
       ),
       
-      sorter: (a, b) => sorter(a.title,b.title),
+      sorter: (a, b) => sorter(a.draw_date,b.draw_date),
     
     sortDirections:  ['ascend', 'descend'],
-      dataIndex: "title",
-      key: "title",
+      dataIndex: "draw_date",
+      key: "draw_date",
+    },
+    {
+      title: (filters, sortOrder) => (
+        <>
+        <img src={images.ArrowIcon} alt="ss" />
+        <span>DrawNumber</span>
+        </>
+      ) ,
+      sorter: (a, b) => sorter(a.draw_number,b.draw_number),
+
+      dataIndex: "draw_number",
+      key: "draw_number",
+      className: "letsgo",
+      rowId: "ships",
     },
     {
       title: (filters, sortOrder) => (
@@ -161,16 +232,36 @@ const Results = () => {
         <span>DrawTime</span>
         </>
       ) ,
-      sorter: (a, b) => sorter(a.body,b.body),
+      sorter: (a, b) => sorter(a.draw_time,b.draw_time),
 
-      dataIndex: "body",
-      key: "body",
+      dataIndex: "draw_time",
+      key: "draw_time",
       className: "letsgo",
       rowId: "ships",
     },
   ];
-  const getActions = (type) => {console.log('getting actions')}
-  const paginatedData = currentPage === 1 ? sortedData : getData(currentPage, pageSize);
+  //const getActions = (type) => {console.log('getting actions')}
+  //const paginatedData = currentPage === 1 ? sortedData : getData(currentPage, pageSize);
+  /////My custom code
+   
+ 
+
+
+  const getGameCategoryData = async (uri, game_name) => {
+    const {data} = await axios.get(uri);
+    let count = 0
+     data.forEach((d)=> {
+      d.count = count++
+    })
+    setGameCategory(data)
+    setGameNamePlaceholder(game_name)
+  }
+
+ 
+  /////My custom code
+
+
+  if(hidePage)  return null
 
   return (
     <Wrapper>
@@ -195,13 +286,17 @@ You can view the latest numbers including detailed information of winners and pr
         </div>
         <div className="d-flex align-items-start justify-content-stretch">
           <div
-            className="nav m-margin flex-column nav-pills me-3 col-lg-2"
+            className="nav m-margin flex-column nav-pills me-2 col-lg-3"
             id="v-pills-tab"
             role="tablist"
-            aria-orientation="vertical"
+            aria-orientation="horizontal"
           >
+           {/* {
+            game_names.map((element, index)=> (
+
             <button
-              className="nav-link active"
+              onClick={(e)=> getDataFromApi(e.target.dataset.uri)}
+              className={`nav-link ${index === 0 ? "active" : null}`}
               id="v-pills-home-tab"
               data-bs-toggle="pill"
               data-bs-target="#v-pills-home"
@@ -209,23 +304,66 @@ You can view the latest numbers including detailed information of winners and pr
               role="tab"
               aria-controls="v-pills-home"
               aria-selected="true"
+              data-uri={element.data_url}
             >
-              5 D
+              {element.category_name}
             </button>
-            <button
-              className="nav-link"
-              id="v-pills-profile-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-profile"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-profile"
-              aria-selected="false"
-            >
-              3 D
-            </button>
-            <li className="nav-item dropdown">
-              {/* work on styling the button */}
+            )) } */}
+
+
+           {  
+             game_names.map((game, parent_index)=>
+             
+            //  <li className="nav-item dropdown" key={index}>
+            <li className="" key={parent_index}>
+            
+              <a
+                className="nav-link dropdown-toggle d-flex align-items-center justify-content-between"
+                data-bs-toggle="collapse"
+                href={`${'#collapsePane_' + game.catid}`}
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapsePane"
+                onClick={()=> getGameCategoryData(game.game_url,game.category_name)}
+              >
+                {game.category_name} <IoIosArrowDown />
+              </a>
+              <ul
+                className="collapse nav-list-pane  bg-white text-black"
+                id={`${'collapsePane_' + game.catid}`}
+              >
+                {
+                  game_category.map((category, index)=>
+                  <li key={index}>
+                  
+                  <a
+                    onClick={(e)=> getEachDataFromUrl(category.data_url, index, category.count, e)}
+                    className='nav-link nav-links-list m-links-list-item nav-item is-active'
+                    id={`${'v-pills-profile-tab_' + index}`}
+                    data-bs-toggle={`${'pill_' + index + '_' + parent_index}`}
+                    data-bs-target={`${'#v-pills-profile_' + index}`}
+                    type="button"
+                    role="tab"
+                    href="#"
+                    aria-controls={`${'v-pills-profile_' + index}`}
+                    aria-selected="false"
+                  >
+                   <p style={{marginLeft:"3px"}}> {category.game_name}</p>
+                  </a>
+                </li>
+                   )
+                 }
+
+              </ul>
+            </li>
+
+            )
+           }
+
+
+
+            {/* <li className="nav-item dropdown">
+           
               <a
                 className="nav-link dropdown-toggle d-flex align-items-center justify-content-between"
                 data-bs-toggle="collapse"
@@ -234,7 +372,7 @@ You can view the latest numbers including detailed information of winners and pr
                 aria-expanded="false"
                 aria-controls="collapsePane"
               >
-                5 D <img src={images.downArrowIcon} alt="ss" />
+                3 D <img src={images.downArrowIcon} alt="ss" />
               </a>
               <ul
                 className="collapse nav-list-pane  bg-white text-black"
@@ -251,87 +389,23 @@ You can view the latest numbers including detailed information of winners and pr
                     href="#"
                     aria-controls="v-pills-profile"
                     aria-selected="false"
-                    // onClick={()=> fetchData()}
+                    data-uri="http://192.168.199.120/1kball/dev/api/v1/"
                   >
                     Action
                   </a>
                 </li>
-                <li>
-                  <a
-                    className="nav-link m-links-list-item"
-                    id="v-pills-disabled-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-disabled"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-disabled"
-                    aria-selected="false"
-                  >
-                    Another
-                  </a>
-                </li>
+        
               </ul>
             </li>
-            <button
-              className="nav-link"
-              id="v-pills-disabled-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-disabled"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-disabled"
-              aria-selected="false"
-            >
-              Fast 3
-            </button>
-            <button
-              className="nav-link"
-              id="v-pills-disabled-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-disabled"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-disabled"
-              aria-selected="false"
-            >
-              Pk 10
-            </button>
-            <button
-              className="nav-link"
-              id="v-pills-disabled-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-disabled"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-disabled"
-              aria-selected="false"
-            >
-              11 x 5
-            </button>
-            <button
-              className="nav-link"
-              id="v-pills-messages-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-messages"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-messages"
-              aria-selected="false"
-            >
-              Pc 28
-            </button>
-            <button
-              className="nav-link"
-              id="v-pills-settings-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#v-pills-settings"
-              type="button"
-              role="tab"
-              aria-controls="v-pills-settings"
-              aria-selected="false"
-            >
-              49/7
-            </button>
+
+
+ */}
+
+
+
+
+
+
           </div>
           <div className="tab-content" id="v-pills-tabContent">
             <div
@@ -347,10 +421,11 @@ You can view the latest numbers including detailed information of winners and pr
               >
                 <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
-                    <div className="table-responsive">
-                      <TableHeader>5 D .. 5D1</TableHeader>
+                    <div className="table-responsive" style={{zIndex:"0px"}}>
+                      <TableHeader>{gameNamePlaceholder}</TableHeader>
                       <Spin spinning={loading}>
                       <Table
+                      style={{zIndex:"0px"}}
                         columns={columns}
                         dataSource={getData(currentPage, pageSize)}
                         // dataSource={paginatedData}
@@ -386,6 +461,7 @@ You can view the latest numbers including detailed information of winners and pr
                       <TableHeader>5 D .. 5D1</TableHeader>
                       <Spin spinning={loading}>
                       <Table
+                      style={{zIndex:"0px" , position:"relative"}}
                         columns={columns}
                         dataSource={getData(currentPage, pageSize)}
                         // dataSource={paginatedData}
@@ -488,213 +564,7 @@ You can view the latest numbers including detailed information of winners and pr
                 <div className="card shadow border-0">
                   <div className="card-body p-5 bg-white ">
                     <div className="table-responsive">
-                      <table
-                        id="example"
-                        style={{ width: "100%" }}
-                        className="table "
-                      >
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>
-                              <img src={images.ArrowDownIcon} alt="ss" />
-                              Number
-                            </th>
-                            <th>
-                              <img src={images.ArrowIcon} alt="ss" />
-                              DrawDate
-                            </th>
-                            <th>
-                              <img src={images.ArrowIcon} alt="ss" />
-                              DrawTime
-                            </th>
-                            {/* <th>Start date</th>
-                  <th>Salary</th> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                          </tr>
-                          <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                          </tr>
-                          <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                          </tr>
-                          <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                          </tr>
-                          <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                          </tr>
-                          <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Quinn Flynn</td>
-                            <td>Support Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>36</td>
-                          </tr>
-                          <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>43</td>
-                          </tr>
-                          <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>19</td>
-                          </tr>
-                          <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>66</td>
-                          </tr>
-                          <tr>
-                            <td>Paul Byrd</td>
-                            <td>Chief Financial Officer (CFO)</td>
-                            <td>New York</td>
-                            <td>64</td>
-                          </tr>
-                          <tr>
-                            <td>Gloria Little</td>
-                            <td>Systems Administrator</td>
-                            <td>New York</td>
-                            <td>59</td>
-                          </tr>
-                          <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>41</td>
-                          </tr>
-                          <tr>
-                            <td>Dai Rios</td>
-                            <td>Personnel Lead</td>
-                            <td>Edinburgh</td>
-                            <td>35</td>
-                          </tr>
-                          <tr>
-                            <td>Jenette Caldwell</td>
-                            <td>Development Lead</td>
-                            <td>New York</td>
-                            <td>30</td>
-                          </tr>
-                          <tr>
-                            <td>Yuri Berry</td>
-                            <td>Chief Marketing Officer (CMO)</td>
-                            <td>New York</td>
-                            <td>40</td>
-                          </tr>
-                          <tr>
-                            <td>Caesar Vance</td>
-                            <td>Pre-Sales Support</td>
-                            <td>New York</td>
-                            <td>21</td>
-                          </tr>
-                          <tr>
-                            <td>Doris Wilder</td>
-                            <td>Sales Assistant</td>
-                            <td>Sidney</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td>Angelica Ramos</td>
-                            <td>Chief Executive Officer (CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                          </tr>
-                          <tr>
-                            <td>Gavin Joyce</td>
-                            <td>Developer</td>
-                            <td>Edinburgh</td>
-                            <td>42</td>
-                          </tr>
-                          <tr>
-                            <td>Jennifer Chang</td>
-                            <td>Regional Director</td>
-                            <td>Singapore</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                          </tr>
-                          <tr>
-                            <td>Fiona Green</td>
-                            <td>Chief Operating Officer (COO)</td>
-                            <td>San Francisco</td>
-                            <td>48</td>
-                          </tr>
-                          <tr>
-                            <td>Shou Itou</td>
-                            <td>Regional Marketing</td>
-                            <td>Tokyo</td>
-                            <td>20</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      
                     </div>
                   </div>
                 </div>
@@ -709,25 +579,3 @@ You can view the latest numbers including detailed information of winners and pr
 };
 
 export default Results;
-// const sortData = (data) => {
-//   // Call slice to create a new Array and prevent mutating it if it's stored in state
-//   return data.slice().sort((a, b) => a.myKey - b.myKey);
-// }
-// const sortableColumns = columns.map(column => {
-//   const { sorter, dataIndex, ...otherColumnProps } = column;
-
-//   if (sorter) {
-//     const { compare, ...otherSorterProps } = sorter;
-
-//     return {
-//       ...otherColumnProps,
-//       dataIndex,
-//       sorter: {
-//         compare: (rowA, rowB) => compare(rowA[dataIndex], rowB[dataIndex]),
-//         ...otherSorterProps,
-//       }
-//     };
-//   }
-
-//   return column;
-// });
