@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     --medGrey: #353535; 
     --darkGrey: #1c1c1c;
     --fontColorBlue: #076696;
-    --fontSuperBig: 3.2rem;
+    --fontSuperBig: 2rem;
     --fontBig: 1.5rem;
     --fontMed: 1.2rem;
     --fontSmall: 1rem;
@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
   body {  
     /* margin: 0; */
     margin: 0;
-    /* overflow:   scroll; */
+    overflow-y:hidden;
     padding: 0;
     /* position: fixed; */
     /* position: absolute; */
@@ -70,16 +70,23 @@ export const GlobalStyle = createGlobalStyle`
     /* padding:4px; */
     /* background-color: green; */
     overflow: hidden;
-
-    width: 90vw;
+/* margin: 0; */
+    /* width: 90vw; */
     height: fit-content;
     overflow-x: hidden;
     overflow-y: scroll;
     /* text-align:justify; */
   }
-
+/* hide scrollbar for chrome*/
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; 
 }
+
+/* hide scroll bar for mozilla */
+.scroll::-moz-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
 `;
